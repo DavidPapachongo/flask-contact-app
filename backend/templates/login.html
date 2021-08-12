@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% block body %}
+
+  <div class="row">
+    <div class="col-md-4 offset-md-4">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ messages[0] }}
+            {% if messages[0] == 'Please sign up before!' %}
+            <br> Go to <a href="{{ url_for('signup') }}">Sign Up page</a>.
+            {% endif %}
+        </div>
+        {% endif %}
+        {% endwith %}
+      <div class="card card-body">
+        <h3 class="title">Login</h3>
+        <form method="POST" action="/login">
+          <div class="form-group">
+            <input class="form-control" type="email" name="email" placeholder="Your Email" autofocus="" required>
+          </div>
+          <div class="form-group">
+            <input class="form-control" type="password" name="password" placeholder="Your Password" required>
+          </div>
+          <div class="field">
+            <label class="checkbox">
+                <input type="checkbox">
+                Remember me
+            </label>
+            </div>
+          <div class="form-group">
+            <button  type="submit" class="btn btn-primary btn-block">Login</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
