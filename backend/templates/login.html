@@ -8,7 +8,7 @@
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
             {{ messages[0] }}
             {% if messages[0] == 'Please sign up before!' %}
-            <br> Go to <a href="{{ url_for('signup') }}">Sign Up page</a>.
+            <br> Go to <a href="{{ url_for('auth.signup') }}">Sign Up page</a>.
             {% endif %}
         </div>
         {% endif %}

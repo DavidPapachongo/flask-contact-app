@@ -13,9 +13,10 @@ main = Blueprint('main', __name__)
 @login_required
 def index():
     data = Contacts.query.filter(Contacts.user_id == current_user.id).all()
-    return render_template('index.html', contacts = data)
+    return render_template('index.html', contacts=data)
 
-@main.route('/add_contact', methods =['POST'])
+
+@main.route('/add_contact', methods=['POST'])
 @login_required
 def add_contact():
     try:
@@ -24,7 +25,7 @@ def add_contact():
             phone = request.form['phone']
             email = request.form['email']
             user_id = current_user.id
-            data = Contacts(fullname, phone, email,user_id)
+            data = Contacts(fullname, phone, email, user_id)
             db.session.add(data)
             db.session.commit()
             flash('Contact Added successfully')
@@ -34,13 +35,14 @@ def add_contact():
 
         flash('Fill The Form')
         return redirect(url_for('main.index'))
-    
+
 
 @main.route('/edit/<id>')
 @login_required
 def edit_contact(id):
     data = Contacts.query.filter(Contacts.id == id).one()
-    return render_template('edit_contact.html', contact = data)
+    return render_template('edit_contact.html', contact=data)
+
 
 @main.route('/update/<id>', methods=['POST'])
 @login_required
@@ -57,7 +59,6 @@ def update_contact(id):
         flash('Contact Updated successfully')
         return redirect(url_for('main.index'))
 
-    
 
 @main.route('/delete/<id>')
 @login_required
@@ -67,8 +68,11 @@ def delete_contact(id):
     flash('Contact Removed successfully')
     return redirect(url_for('main.index'))
 
+
 app = create_app()
 db.init_app(app)
+with app.app_context():
+    db.create_all()
 
 if __name__ == '__main__':
 
