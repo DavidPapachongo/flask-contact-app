@@ -10,10 +10,11 @@ db = SQLAlchemy()
 
 def create_app():
     app = Flask(__name__)
-
     app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     app.secret_key = os.environ['SECRET_KEY']
+    
+    
 
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
@@ -33,3 +34,6 @@ def create_app():
     app.register_blueprint(main_blueprint)
 
     return app
+
+
+
