@@ -19,6 +19,7 @@ Flask-SQLAlchemy==2.4.1
 Flask-Testing==0.8.1
 Flask-WTF==0.15.1
 greenlet==1.1.0
+gunicorn==20.1.0
 idna==3.2
 importlib-metadata==4.6.3
 iniconfig==1.1.1
