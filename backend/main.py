@@ -69,11 +69,3 @@ def delete_contact(id):
     return redirect(url_for('main.index'))
 
 
-app = create_app()
-db.init_app(app)
-with app.app_context():
-    db.create_all()
-
-if __name__ == '__main__':
-
-    app.run(port=3000, debug=True)
