@@ -1,1 +1,1 @@
-web: gunicorn --workers=2 backend.__init__:app
+web: sh -c 'cd ./backend/ && gunicorn --workers=2 __init__:app
