@@ -1,6 +1,7 @@
 
 from flask import render_template, request, url_for, redirect, flash, Blueprint
 from sqlalchemy.exc import DataError
+from sqlalchemy.orm import Session
 from flask_login import login_required, current_user
 from models import Contacts
 from __init__ import create_app
@@ -47,17 +48,24 @@ def edit_contact(id):
 @main.route('/update/<id>', methods=['POST'])
 @login_required
 def update_contact(id):
-    if request.method == 'POST':
-        fullname = request.form['fullname']
-        phone = request.form['phone']
-        email = request.form['email']
-        up_data = Contacts.query.filter(Contacts.id == id).one()
-        up_data.fullname = fullname
-        up_data.phone = phone
-        up_data.email = email
-        db.session.commit()
-        flash('Contact Updated successfully')
-        return redirect(url_for('main.index'))
+    try:
+        if request.method == 'POST':
+            fullname = request.form['fullname']
+            phone = request.form['phone']
+            email = request.form['email']
+            up_data = Contacts.query.filter(Contacts.id == id).one()
+            up_data.fullname = fullname
+            up_data.phone = phone
+            up_data.email = email
+            db.session.commit()
+            flash('Contact Updated successfully')
+            return redirect(url_for('main.index'))
+    except BaseException:
+        db.session.rollback()
+
+        flash('Fill in the form correctly')
+
+        return render_template('edit_contact.html', contact=up_data)
 
 
 @main.route('/delete/<id>')
@@ -76,4 +84,4 @@ with app.app_context():
 
 if __name__ == '__main__':
 
-    app.run(port=3000, debug=True)
+    app.run(port=3000)

@@ -16,8 +16,6 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = uri
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     app.secret_key = os.environ['SECRET_KEY']
-    
-    
 
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
@@ -35,8 +33,5 @@ def create_app():
 
     from main import main as main_blueprint
     app.register_blueprint(main_blueprint)
-    
 
     return app
-
-
